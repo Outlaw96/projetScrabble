@@ -16,7 +16,7 @@ public class Scrabble {
 	
 	private static Partie partie;
 	
-	public void rechercherMot(String motARechercher, AccueilExample vue)
+	public static void rechercherMot(String motARechercher, AccueilExample vue)
 	{
 		//j'instancie la partie du modele qu'il faut
 		//ensuite je lui donne le mot à recherche
@@ -28,7 +28,7 @@ public class Scrabble {
 	}
 	
 	//méthode qui gère quel méthode du controleur executé pour une demande de la vue
-	public void process(AccueilExample vue)
+	public static void process(AccueilExample vue)
 	{
 		//Si la vue contient une tâche à executer,
 		if(!(vue.getMessage().isEmpty()))
@@ -67,7 +67,7 @@ public class Scrabble {
 		AccueilExample maVue = new AccueilExample(); 
 		
 		//ensuite on met le controleur à l'écoute de la vue
-		
+		process(maVue);	
 	}
 
 }

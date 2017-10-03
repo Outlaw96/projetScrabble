@@ -55,7 +55,7 @@ public class AccueilExample extends JFrame{
 			//on affiche la définition du mot.
 			JOptionPane.showMessageDialog(this, this.motARechercher+" : "+definition, " "+this.motARechercher, JOptionPane.INFORMATION_MESSAGE, null);	
 		}
-		
+		this.cleanAction();
 	}
 	
 	/**
