@@ -2,8 +2,9 @@ package model;
 
 /**
  * Class Case
- * @author Anonymous
- * Cette classe modelise une case dans le plateau de jeu de scrabble
+ * 
+ * @author Anonymous Cette classe modelise une case dans le plateau de jeu de
+ *         scrabble
  */
 public class Case {
 	private int coordX;
@@ -11,25 +12,21 @@ public class Case {
 	private boolean isTaken;
 	private TypeCase typeCase;
 	private Pion pion;
-	
-	/**
-	 * Case : constructeur de la classe
-	 * @param coordX
-	 * @param coordY
-	 * @param isTaken
-	 * @param typeCase
-	 */
+
+	/* CONSTRUCTORS */
+	public Case(TypeCase typeCase) {
+		this.typeCase = typeCase;
+	}
+
 	public Case(int coordX, int coordY, boolean isTaken, TypeCase typeCase) {
-		super();
 		this.coordX = coordX;
 		this.coordY = coordY;
 		this.isTaken = isTaken;
 		this.typeCase = typeCase;
 		pion = null;
 	}
-	
-	public Case()
-	{
+
+	public Case() {
 		this.coordX = 0;
 		this.coordY = 0;
 		this.isTaken = false;
@@ -37,6 +34,7 @@ public class Case {
 		pion = null;
 	}
 
+	/* GETTERS AND SETTERS */
 	public int getCoordX() {
 		return coordX;
 	}
@@ -76,6 +74,8 @@ public class Case {
 	public void setPion(Pion pion) {
 		this.pion = pion;
 	}
-	
-	
+
+	public String toString() {
+		return "" + this.typeCase;
+	}
 }

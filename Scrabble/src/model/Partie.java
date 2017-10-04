@@ -10,11 +10,15 @@ public class Partie {
 	private int timer;
 	private ArrayList<Pion> sacPions;
 	private Plateau plateau;
-	
-	
+	private ArrayList<Mot> dictionnaire;
+
+	/* CONSTRUCTOR(S) */
+	public Partie() {
+		
+	}
+
 	public Partie(boolean isFinished, boolean isDraw, Joueur[] players, Joueur currentPlayer, int timer,
 			ArrayList<Pion> sacPions, Plateau plateau) {
-		super();
 		this.isFinished = isFinished;
 		this.isDraw = isDraw;
 		this.players = players;
@@ -23,60 +27,69 @@ public class Partie {
 		this.sacPions = sacPions;
 		this.plateau = plateau;
 	}
-	
+
+	/* GETTERS AND SETTERS */
 	public boolean isFinished() {
 		return isFinished;
 	}
-	
+
 	public void setFinished(boolean isFinished) {
 		this.isFinished = isFinished;
 	}
-	
+
 	public boolean isDraw() {
 		return isDraw;
 	}
-	
+
 	public void setDraw(boolean isDraw) {
 		this.isDraw = isDraw;
 	}
-	
+
 	public Joueur[] getPlayers() {
 		return players;
 	}
-	
+
 	public void setPlayers(Joueur[] players) {
 		this.players = players;
 	}
-	
+
 	public Joueur getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
+
 	public void setCurrentPlayer(Joueur currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
-	
+
 	public int getTimer() {
 		return timer;
 	}
-	
+
 	public void setTimer(int timer) {
 		this.timer = timer;
 	}
-	
+
 	public ArrayList<Pion> getSacPions() {
 		return sacPions;
 	}
-	
+
 	public void setSacPions(ArrayList<Pion> sacPions) {
 		this.sacPions = sacPions;
 	}
-	
+
 	public Plateau getPlateau() {
 		return plateau;
 	}
-	
+
 	public void setPlateau(Plateau plateau) {
 		this.plateau = plateau;
+	}
+
+	public ArrayList<Mot> getDictionnaire() {
+		return dictionnaire;
+	}
+
+	public void setDictionnaire(ArrayList<Mot> dictionnaire) {
+		this.dictionnaire = dictionnaire;
 	}
 }

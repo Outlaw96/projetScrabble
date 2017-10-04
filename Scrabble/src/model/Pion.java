@@ -2,8 +2,9 @@ package model;
 
 /**
  * Class Pion
- * @author Anonymous
- * Cette classe modélise un pion de jeu dans le scrabble. Il est composé comme l'indique la classe ci dessous
+ * 
+ * @author Anonymous Cette classe modélise un pion de jeu dans le scrabble. Il
+ *         est composé comme l'indique la classe ci dessous
  */
 
 public class Pion {
@@ -12,9 +13,9 @@ public class Pion {
 	private boolean isPlaced;
 	private boolean isJoker;
 	private Case casee;
-	
+
+	/* CONSTRUCTOR(S) */
 	public Pion(String letter, int point, boolean isPlaced, boolean isJoker) {
-		super();
 		this.letter = letter;
 		this.point = point;
 		this.isPlaced = isPlaced;
@@ -22,6 +23,7 @@ public class Pion {
 		this.casee = null;
 	}
 
+	/* GETTERS AND SETTERS */
 	public String getLetter() {
 		return letter;
 	}
@@ -61,6 +63,4 @@ public class Pion {
 	public void setCasee(Case casee) {
 		this.casee = casee;
 	}
-	
-	
 }
