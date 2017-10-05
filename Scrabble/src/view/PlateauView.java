@@ -28,8 +28,8 @@ public class PlateauView extends JPanel {
 		this.plateau.addLD();
 		this.plateau.addLT();
 		this.plateau.getPlateau();
-		this.xP = 10;
-		this.yP = 10;
+		this.xP = 50;
+		this.yP = 50;
 		this.sizeCaz = 35;
 	}
 
@@ -83,7 +83,7 @@ public class PlateauView extends JPanel {
 				drawCase(g, sizeCaz, this.plateau.getCases()[i][j]);
 				this.xP += this.sizeCaz;
 			}
-			this.xP = 10;
+			this.xP = 50;
 			this.yP += this.sizeCaz;
 		}
 	}

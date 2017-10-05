@@ -1,6 +1,9 @@
 package view;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Classe pour representer graphiquement une partie
@@ -10,14 +13,23 @@ import javax.swing.JFrame;
  */
 public class PartieView extends JFrame {
 	private PlateauView plateauView;
+	private JPanel fond;
+	private JoueurView joueurView;
 
 	public PartieView() {
 		this.setSize(800, 700);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		this.plateauView = new PlateauView();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().add(plateauView);
+		this.plateauView = new PlateauView();
+		this.joueurView = new JoueurView();
+
+		fond = new JPanel();
+		fond.setLayout(new BorderLayout());
+		fond.add(plateauView, BorderLayout.CENTER);
+		fond.add(joueurView, BorderLayout.SOUTH);
+
+		this.getContentPane().add(fond);
 		this.setVisible(true);
 	}
 }
