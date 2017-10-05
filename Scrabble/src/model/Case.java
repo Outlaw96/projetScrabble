@@ -16,6 +16,7 @@ public class Case {
 	/* CONSTRUCTORS */
 	public Case(TypeCase typeCase) {
 		this.typeCase = typeCase;
+		this.isTaken = false;
 	}
 
 	public Case(int coordX, int coordY, boolean isTaken, TypeCase typeCase) {

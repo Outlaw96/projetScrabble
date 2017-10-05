@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Joueur {
 	private String pseudo;
 	private boolean isWinner;
-	Pion chevalet[];
+	private Pion chevalet[];
 
 	public Joueur(String pseudo, ArrayList<Pion> sacPions) {
 
