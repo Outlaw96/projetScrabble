@@ -30,7 +30,7 @@ public class PlateauView extends JPanel {
 		this.plateau.getPlateau();
 		this.xP = 50;
 		this.yP = 50;
-		this.sizeCaz = 35;
+		this.sizeCaz = 40;
 	}
 
 	/**
@@ -42,15 +42,15 @@ public class PlateauView extends JPanel {
 	public Color getCaseColor(Case caz) {
 		switch (caz.getTypeCase()) {
 		case MT:
-			return Color.RED;
+			return new Color(255, 0, 0);
 		case MD:
-			return Color.PINK;
+			return new Color(255, 128, 229);
 		case LT:
-			return Color.BLUE;
+			return new Color(0, 0, 255);
 		case LD:
-			return Color.CYAN;
+			return new Color(0, 192, 255);
 		default:
-			return Color.GREEN;
+			return new Color(25, 190, 114);
 		}
 	}
 

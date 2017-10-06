@@ -49,6 +49,7 @@ public class AccueilExample extends JFrame{
 		if(definition.isEmpty())
 		{
 			//on affiche selon les méthodes du JFrame que le mot est vide
+			
 		}
 		else
 		{
@@ -64,7 +65,7 @@ public class AccueilExample extends JFrame{
 	public void cleanAction()
 	{
 		this.message = "";
-		isAvalaible = true; // on libère l'occupation
+		this.isAvalaible = true; // on libère l'occupation
 	}
 
 	public String getMessage() {
