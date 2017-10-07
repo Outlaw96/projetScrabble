@@ -35,6 +35,25 @@ public class Case {
 		pion = null;
 	}
 
+	/**
+	 * ajouter un pion dans une case
+	 * 
+	 * @param p
+	 *            pion
+	 */
+	public void addPion(Pion p) {
+		this.setPion(p);
+		this.isTaken = true;
+	}
+
+	/**
+	 * Supprimer un pion d'une case
+	 */
+	public void removePion() {
+		this.setPion(null);
+		this.setTaken(false);
+	}
+
 	/* GETTERS AND SETTERS */
 	public int getCoordX() {
 		return coordX;

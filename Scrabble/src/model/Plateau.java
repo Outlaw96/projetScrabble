@@ -116,13 +116,45 @@ public class Plateau {
 		}
 	}
 
+	/**
+	 * afficher le plateau dans la console
+	 */
 	public void getPlateau() {
 		for (int i = 0; i < cases.length; i++) {
 			for (int j = 0; j < cases[i].length; j++) {
-				System.out.print(" " + cases[i][j].getTypeCase().getLibelle() + " ");
+				if (cases[i][j].isTaken()) {
+					System.out.print(" " + cases[i][j].getPion().getLetter() + " ");
+				} else
+					System.out.print(" " + cases[i][j].getTypeCase().getLibelle() + " ");
 			}
 			System.out.println();
 		}
+	}
+
+	/**
+	 * Ajouter pion dans les cases du plateau
+	 * 
+	 * @param i
+	 *            ligne
+	 * @param j
+	 *            colonne
+	 * @param p
+	 *            pion
+	 */
+	public void addPion(int i, int j, Pion p) {
+		this.cases[i][j].addPion(p);
+	}
+
+	/**
+	 * supprimer un pion d'une des cases du plateau
+	 * 
+	 * @param i
+	 *            ligne
+	 * @param j
+	 *            colonne
+	 */
+	public void removePion(int i, int j) {
+		this.cases[i][j].removePion();
 	}
 
 	/* GETTERS AND SETTERS */
