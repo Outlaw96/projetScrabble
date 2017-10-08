@@ -64,5 +64,6 @@ public class MainContainer extends JPanel {
 		this.add(plateauView, BorderLayout.CENTER);
 		this.add(toolMenu, BorderLayout.EAST);
 		// this.add(chevaletJoueur, BorderLayout.SOUTH);
+		this.setVisible(true);
 	}
 }

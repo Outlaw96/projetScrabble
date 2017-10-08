@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import listeners.PlateauListener;
 import model.Case;
 import model.Joueur;
 import model.Pion;
@@ -55,24 +56,21 @@ public class PlateauView extends JPanel {
 
 		// tester la présence des pions sur le plateau
 		this.plateau.getCases()[7][7].addPion(new Pion("L", 10, true, false));
+		this.plateau.getCases()[0][0].addPion(new Pion("L", 10, true, false));
 		this.plateau.getCases()[7][8].addPion(new Pion("L", 10, true, false));
-		// this.plateau.getCases()[7][9].addPion(new Pion("L", 10, true,
-		// false));
-		// this.plateau.getCases()[7][10].addPion(new Pion("L", 10, true,
-		// false));
-		this.plateau.getCases()[7][11].addPion(new Pion("L", 10, true, false));
-		this.plateau.getCases()[7][12].addPion(new Pion("L", 10, true, false));
+		this.plateau.getCases()[7][9].addPion(new Pion("L", 10, true, false));
 
 		this.plateau.getPlateau();
 
 		// Coord Y chevalet IA
 		this.yIA = 10;
 		this.xP = 50;
-		this.yP = this.yIA + 50;
+		this.yP = 60;
 		this.sizeCaz = 30;
 
 		// Coord Y chevalet humain
 		this.yHum = (this.yP + this.sizeCaz * 15) + 15;
+		this.addMouseListener(new PlateauListener(this, this.plateau, this.players[1]));
 	}
 
 	/**
@@ -109,11 +107,11 @@ public class PlateauView extends JPanel {
 	 */
 	public void writeLetter(Graphics g, Case caz) {
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", Font.BOLD, 25));
-		g.drawString(caz.getPion().getLetter(), caz.getCoordX(), caz.getCoordY() + this.sizeCaz * 4 / 5);
-		g.setFont(new Font("Arial", Font.BOLD, 10));
-		g.drawString("" + caz.getPion().getPoint(), caz.getCoordX() + this.sizeCaz / 2,
-				caz.getCoordY() + 4 * this.sizeCaz / 5);
+		g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+		g.drawString(caz.getPion().getLetter(), caz.getCoordX(), caz.getCoordY() + this.sizeCaz * 3 / 4);
+		g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+		g.drawString("" + caz.getPion().getPoint(), caz.getCoordX() + this.sizeCaz * 3 / 5,
+				caz.getCoordY() + this.sizeCaz - 1);
 	}
 
 	/**
@@ -154,6 +152,8 @@ public class PlateauView extends JPanel {
 			this.xP = 50;
 			this.yP += this.sizeCaz;
 		}
+		this.yP = 60;
+		this.xP = 50;
 	}
 
 	/**
@@ -214,6 +214,124 @@ public class PlateauView extends JPanel {
 				&& (ym >= caz.getCoordY() || ym <= caz.getCoordY() + this.sizeCaz);
 	}
 
+	/**
+	 * renvoi le coordonnée de la seconde dimension du plateau
+	 * 
+	 * @param y
+	 *            coordy souris
+	 * @return indice y de la case
+	 */
+	public int getY(int y) {
+		int coordy = -1;
+		if (y > 50 && y < 80) {
+			coordy = 0;
+		} else if (y > 80 && y < 110) {
+			coordy = 1;
+		} else if (y > 110 && y < 140) {
+			coordy = 2;
+		} else if (y > 140 && y < 170) {
+			coordy = 3;
+		} else if (y > 170 && y < 200) {
+			coordy = 4;
+		} else if (y > 200 && y < 230) {
+			coordy = 5;
+		} else if (y > 230 && y < 260) {
+			coordy = 6;
+		} else if (y > 260 && y < 290) {
+			coordy = 7;
+		} else if (y > 290 && y < 310) {
+			coordy = 8;
+		} else if (y > 310 && y < 340) {
+			coordy = 9;
+		} else if (y > 340 && y < 370) {
+			coordy = 10;
+		} else if (y > 370 && y < 400) {
+			coordy = 11;
+		} else if (y > 400 && y < 430) {
+			coordy = 12;
+		} else if (y > 430 && y < 470) {
+			coordy = 13;
+		} else if (y > 470 && y < 500) {
+			coordy = 14;
+		}
+		return coordy;
+	}
+
+	/**
+	 * renvoi le coordonnée de la première dimension du plateau
+	 * 
+	 * @param x
+	 *            coordy de la souris
+	 * @return indice x de la case
+	 */
+	public int getX(int x) {
+		int coordx = -1;
+		if (x > 60 && x < 90) {
+			coordx = 0;
+		} else if (x > 90 && x < 120) {
+			coordx = 1;
+		} else if (x > 120 && x < 150) {
+			coordx = 2;
+		} else if (x > 150 && x < 180) {
+			coordx = 3;
+		} else if (x > 180 && x < 210) {
+			coordx = 4;
+		} else if (x > 210 && x < 240) {
+			coordx = 5;
+		} else if (x > 240 && x < 270) {
+			coordx = 6;
+		} else if (x > 270 && x < 300) {
+			coordx = 7;
+		} else if (x > 300 && x < 330) {
+			coordx = 8;
+		} else if (x > 330 && x < 360) {
+			coordx = 9;
+		} else if (x > 360 && x < 390) {
+			coordx = 10;
+		} else if (x > 390 && x < 420) {
+			coordx = 11;
+		} else if (x > 420 && x < 450) {
+			coordx = 12;
+		} else if (x > 450 && x < 480) {
+			coordx = 13;
+		} else if (x > 480 && x < 510) {
+			coordx = 14;
+		}
+		return coordx;
+	}
+
+	/**
+	 * Renvoyer l'index du chevalet joueur
+	 * 
+	 * @param x
+	 *            coordonnée x de la souris
+	 * @return l'index d'un chevalet
+	 */
+	public int getIndexChevalet(int x, int y) {
+		int index = -1;
+		if (y > 525 && y < 555) {
+			if (x > 50 && x < 80) {
+				index = 0;
+			} else if (x > 80 && x < 110) {
+				index = 1;
+			} else if (x > 110 && x < 140) {
+				index = 2;
+			} else if (x > 140 && x < 170) {
+				index = 3;
+			} else if (x > 170 && x < 200) {
+				index = 4;
+			} else if (x > 200 && x < 230) {
+				index = 5;
+			} else if (x > 230 && x < 260) {
+				index = 6;
+			}
+		}
+		return index;
+	}
+
+
+	
+	
 	public void paint(Graphics g) {
 		drawPlateau(g);
 		// desinner les deux chevalets
