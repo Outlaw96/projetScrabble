@@ -37,16 +37,19 @@ public class PlateauView extends JPanel {
 		this.players[1].initChevalet();
 
 		// tester un chevalet avec des pions
-		this.players[1].addPion(0, new Pion("X", 12, false, false));
-		// this.players[1].addPion(1, new Pion("X", 12, false, false));
-		// this.players[1].addPion(2, new Pion("X", 12, false, false));
-		this.players[1].addPion(3, new Pion("X", 12, false, false));
-		this.players[1].addPion(4, new Pion("X", 12, false, false));
-		this.players[0].addPion(5, new Pion("X", 12, false, false));
-		this.players[0].addPion(6, new Pion("X", 12, false, false));
+		this.players[1].addPion(0, new Pion("A", 9, false, false));
+		this.players[1].addPion(1, new Pion("B", 2, false, false));
+		this.players[1].addPion(2, new Pion("C", 5, false, false));
+		this.players[1].addPion(3, new Pion("D", 1, false, false));
+		this.players[1].addPion(4, new Pion("E", 10, false, false));
+		this.players[1].addPion(5, new Pion("F", 11, false, false));
+		this.players[1].addPion(6, new Pion("G", 12, false, false));
+		this.players[0].addPion(4, new Pion("E", 10, false, false));
+		this.players[0].addPion(5, new Pion("F", 11, false, false));
+		this.players[0].addPion(6, new Pion("G", 12, false, false));
 		// affichage des deux chevalets dans la console
-		this.players[0].showChevalet();
-		this.players[1].showChevalet();
+		// this.players[0].showChevalet();
+		// this.players[1].showChevalet();
 
 		this.plateau.initPlateau();
 		this.plateau.addMD();
@@ -60,7 +63,11 @@ public class PlateauView extends JPanel {
 		this.plateau.getCases()[7][8].addPion(new Pion("L", 10, true, false));
 		this.plateau.getCases()[7][9].addPion(new Pion("L", 10, true, false));
 
-		this.plateau.getPlateau();
+		// test mix des pions dans chevalet du joueur
+		// this.plateau.getPlateau();
+		// this.players[1].showChevalet();
+		// this.players[1].mix();
+		// this.players[1].showChevalet();
 
 		// Coord Y chevalet IA
 		this.yIA = 10;
@@ -329,9 +336,6 @@ public class PlateauView extends JPanel {
 		return index;
 	}
 
-
-	
-	
 	public void paint(Graphics g) {
 		drawPlateau(g);
 		// desinner les deux chevalets

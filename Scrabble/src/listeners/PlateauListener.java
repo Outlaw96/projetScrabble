@@ -46,7 +46,7 @@ public class PlateauListener implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// un peu sale donc à redefinir
-		if (e.getY() > 0 && e.getY() < 510) {
+		if (e.getY() > 0 && e.getY() < 510 && e.getX() > 50 && e.getX() < 500) {
 			int x = this.pv.getX(e.getY());
 			int y = this.pv.getY(e.getX());
 			if (x >= 0 && y >= 0) {
@@ -56,7 +56,7 @@ public class PlateauListener implements MouseListener {
 					this.j = y;
 				}
 			}
-		} else if (e.getY() > 510 && e.getY() < 555) {
+		} else if (e.getY() > 510 && e.getY() < 555 && e.getX() > 50 && e.getX() < 260) {
 			int x = this.pv.getIndexChevalet(e.getX(), e.getY());
 			if (x >= 0) {
 				if (this.jr.getChevalet()[x].isTaken()) {
@@ -71,7 +71,7 @@ public class PlateauListener implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// un peu sale donc à redefinir aussi
-		if (e.getY() > 0 && e.getY() < 510) {
+		if (e.getY() > 0 && e.getY() < 510 && e.getX() > 50 && e.getX() < 500) {
 			int x = this.pv.getX(e.getY());
 			int y = this.pv.getY(e.getX());
 			if (!this.pl.getCases()[x][y].isTaken() && this.pion != null) {
@@ -83,7 +83,7 @@ public class PlateauListener implements MouseListener {
 					this.jr.getChevalet()[this.index].removePion();
 				}
 			}
-		} else if (e.getY() > 510 && e.getY() < 555) {
+		} else if (e.getY() > 510 && e.getY() < 555 && e.getX() > 50 && e.getX() < 260) {
 			int x = this.pv.getIndexChevalet(e.getX(), e.getY());
 			if (x >= 0) {
 				if (!this.jr.getChevalet()[x].isTaken()) {

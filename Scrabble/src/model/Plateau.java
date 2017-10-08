@@ -23,6 +23,40 @@ public class Plateau {
 		}
 	}
 
+	/**
+	 * pour vérifier si le plateau est vide
+	 * 
+	 * @return vrai
+	 */
+	public boolean isEmpty() {
+		boolean isEmpty = true;
+		for (int i = 0; i < this.cases.length; i++) {
+			for (int j = 0; j < this.cases[i].length; j++) {
+				if (this.cases[i][j].isTaken()) {
+					isEmpty = false;
+				}
+			}
+		}
+		return isEmpty;
+	}
+
+	/**
+	 * vérifier si le plateau est plein
+	 * 
+	 * @return vrai
+	 */
+	public boolean isFull() {
+		boolean isFull = true;
+		for (int i = 0; i < this.cases.length; i++) {
+			for (int j = 0; j < this.cases[i].length; j++) {
+				if (!this.cases[i][j].isTaken()) {
+					isFull = false;
+				}
+			}
+		}
+		return isFull;
+	}
+
 	/* ajout des cases MOT TRIPLE */
 	public void addMT() {
 		for (int i = 0; i < cases.length; i++) {
