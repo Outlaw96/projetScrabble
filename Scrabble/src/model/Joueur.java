@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Joueur {
 	private int count;
@@ -8,12 +9,14 @@ public class Joueur {
 	private boolean winner;
 	private boolean human;
 	private Case chevalet[];
+	private Random rand;
 
 	public Joueur(String pseudo, boolean human) {
 		this.pseudo = pseudo;
 		this.winner = false;
 		this.chevalet = new Case[7];
 		this.count = 0;
+		rand = new Random();
 	}
 
 	/**
@@ -103,6 +106,32 @@ public class Joueur {
 	 */
 	public boolean isEmpty() {
 		return this.count == 0;
+	}
+
+	/**
+	 * echanger deux pions dans deux cases
+	 * 
+	 * @param i
+	 * @param j
+	 */
+	public void swapp(int i, int j) {
+		Pion caz = this.chevalet[i].getPion();
+		this.chevalet[i].removePion();
+		this.chevalet[i].addPion(this.chevalet[j].getPion());
+		this.chevalet[j].removePion();
+		this.chevalet[j].addPion(caz);
+	}
+
+	/**
+	 * mélangez aléatoirement les pions sur le chevalet d'un joueur
+	 */
+	public void mix() {
+		if (this.isFull()) {
+			for (int i = 0; i < this.chevalet.length; i++) {
+				int x = rand.nextInt(this.chevalet.length);
+				swapp(i, x);
+			}
+		}
 	}
 
 	public void showChevalet() {
