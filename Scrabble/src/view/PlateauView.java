@@ -248,15 +248,15 @@ public class PlateauView extends JPanel {
 			coordy = 7;
 		} else if (y > 290 && y < 310) {
 			coordy = 8;
-		} else if (y > 310 && y < 340) {
+		} else if (y > 320 && y < 350) {
 			coordy = 9;
-		} else if (y > 340 && y < 370) {
+		} else if (y > 350 && y < 380) {
 			coordy = 10;
-		} else if (y > 370 && y < 400) {
+		} else if (y > 380 && y < 410) {
 			coordy = 11;
-		} else if (y > 400 && y < 430) {
+		} else if (y > 410 && y < 440) {
 			coordy = 12;
-		} else if (y > 430 && y < 470) {
+		} else if (y > 440 && y < 470) {
 			coordy = 13;
 		} else if (y > 470 && y < 500) {
 			coordy = 14;
