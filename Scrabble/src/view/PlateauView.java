@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import listeners.PlateauListener;
 import model.Case;
 import model.Joueur;
-import model.Pion;
+import model.Partie;
 import model.Plateau;
 
 /**
@@ -22,52 +22,36 @@ public class PlateauView extends JPanel {
 	private Plateau plateau;
 	private int xP, yP, sizeCaz, yIA, yHum;
 	private Joueur[] players;
+	private Partie partie;
 
 	/* CONSTRUCTOR */
 	public PlateauView() {
+		this.partie = new Partie();
+		// test initialisation du sac de pion
+		this.partie.initSacPion();
 		this.plateau = new Plateau(15);
 		this.players = new Joueur[2];
 
 		// initialisation des deux joueurs
-		this.players[1] = new Joueur("Player1", true);
-		this.players[0] = new Joueur("IA", false);
+		this.players[1] = new Joueur("Player1", true, this.partie);
+		this.players[0] = new Joueur("IA", false, this.partie);
 
 		// initialisation des chevalet des joueurs
 		this.players[0].initChevalet();
+		this.players[0].approvisionning();
 		this.players[1].initChevalet();
+		this.players[1].approvisionning();
 
-		// tester un chevalet avec des pions
-		this.players[1].addPion(0, new Pion("A", 9, false, false));
-		this.players[1].addPion(1, new Pion("B", 2, false, false));
-		this.players[1].addPion(2, new Pion("C", 5, false, false));
-		this.players[1].addPion(3, new Pion("D", 1, false, false));
-		this.players[1].addPion(4, new Pion("E", 10, false, false));
-		this.players[1].addPion(5, new Pion("F", 11, false, false));
-		this.players[1].addPion(6, new Pion("G", 12, false, false));
-		this.players[0].addPion(4, new Pion("E", 10, false, false));
-		this.players[0].addPion(5, new Pion("F", 11, false, false));
-		this.players[0].addPion(6, new Pion("G", 12, false, false));
-		// affichage des deux chevalets dans la console
+		// afficher les chevalets
 		// this.players[0].showChevalet();
 		// this.players[1].showChevalet();
-
+		this.partie.showSacPion();
+		
 		this.plateau.initPlateau();
 		this.plateau.addMD();
 		this.plateau.addMT();
 		this.plateau.addLD();
 		this.plateau.addLT();
-
-		// tester la présence des pions sur le plateau
-		this.plateau.getCases()[7][7].addPion(new Pion("L", 10, true, false));
-		this.plateau.getCases()[0][0].addPion(new Pion("L", 10, true, false));
-		this.plateau.getCases()[7][8].addPion(new Pion("L", 10, true, false));
-		this.plateau.getCases()[7][9].addPion(new Pion("L", 10, true, false));
-
-		// test mix des pions dans chevalet du joueur
-		// this.plateau.getPlateau();
-		// this.players[1].showChevalet();
-		// this.players[1].mix();
-		// this.players[1].showChevalet();
 
 		// Coord Y chevalet IA
 		this.yIA = 10;

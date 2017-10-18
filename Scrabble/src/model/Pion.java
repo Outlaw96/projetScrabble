@@ -10,16 +10,30 @@ package model;
 public class Pion {
 	private String letter;
 	private int point;
-	private boolean isPlaced;
-	private boolean isJoker;
+	private boolean placed;
+	private boolean joker;
 	private Case casee;
 
 	/* CONSTRUCTOR(S) */
+	public Pion(String letter, int point) {
+		this.letter = letter;
+		this.point = point;
+		this.setJoker(false);
+		this.setPlaced(false);
+	}
+
+	public Pion(String letter, int point, boolean joker) {
+		this.letter = letter;
+		this.point = point;
+		this.joker = joker;
+		this.setPlaced(false);
+	}
+
 	public Pion(String letter, int point, boolean isPlaced, boolean isJoker) {
 		this.letter = letter;
 		this.point = point;
-		this.isPlaced = isPlaced;
-		this.isJoker = isJoker;
+		this.placed = isPlaced;
+		this.joker = isJoker;
 		this.casee = null;
 	}
 
@@ -41,19 +55,19 @@ public class Pion {
 	}
 
 	public boolean isPlaced() {
-		return isPlaced;
+		return this.placed;
 	}
 
 	public void setPlaced(boolean isPlaced) {
-		this.isPlaced = isPlaced;
+		this.placed = isPlaced;
 	}
 
 	public boolean isJoker() {
-		return isJoker;
+		return this.joker;
 	}
 
 	public void setJoker(boolean isJoker) {
-		this.isJoker = isJoker;
+		this.joker = isJoker;
 	}
 
 	public Case getCasee() {

@@ -10,13 +10,15 @@ public class Joueur {
 	private boolean human;
 	private Case chevalet[];
 	private Random rand;
+	private Partie partie;
 
-	public Joueur(String pseudo, boolean human) {
+	public Joueur(String pseudo, boolean human, Partie partie) {
 		this.pseudo = pseudo;
 		this.winner = false;
 		this.chevalet = new Case[7];
 		this.count = 0;
 		rand = new Random();
+		this.partie = partie;
 	}
 
 	/**
@@ -28,7 +30,16 @@ public class Joueur {
 		}
 	}
 
-	public void approvisionning(ArrayList<Pion> sacPions) {
+	// approvisionner les chavalets des joueurs pion au hasard
+	public void approvisionning() {
+		if (!this.partie.isEmptySac()) {
+			while (!this.isFull()) {
+				int i = rand.nextInt(this.partie.getSacPions().size());
+				this.addPion(this.count, this.partie.getPion(i));
+				this.partie.removeFromSac(i);
+			}
+		} else
+			System.out.println("vide!");
 	}
 
 	public String getPseudo() {

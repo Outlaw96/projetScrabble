@@ -14,7 +14,7 @@ public class Partie {
 
 	/* CONSTRUCTOR(S) */
 	public Partie() {
-		
+		this.sacPions = new ArrayList<>();
 	}
 
 	public Partie(boolean isFinished, boolean isDraw, Joueur[] players, Joueur currentPlayer, int timer,
@@ -26,6 +26,85 @@ public class Partie {
 		this.timer = timer;
 		this.sacPions = sacPions;
 		this.plateau = plateau;
+	}
+
+	public Pion getPion(int i) {
+		return this.sacPions.get(i);
+	}
+
+	// Si le sac est vide
+	public boolean isEmptySac() {
+		return this.sacPions.isEmpty();
+	}
+
+	// supprimer pion à l'index i
+	public void removeFromSac(int i) {
+		this.sacPions.remove(i);
+	}
+
+	/**
+	 * Remplir le sac de pions
+	 */
+	public void initSacPion() {
+		addJoker("", 0, true);
+
+		// ajout des pions 1 point
+		addPion("E", 1, 15);
+		addPion("A", 1, 9);
+		addPion("I", 1, 8);
+		addPion("N", 1, 6);
+		addPion("O", 1, 6);
+		addPion("R", 1, 6);
+		addPion("S", 1, 6);
+		addPion("T", 1, 6);
+		addPion("U", 1, 6);
+		addPion("L", 1, 5);
+
+		// ajout des pions 2 points
+		addPion("D", 2, 3);
+		addPion("G", 2, 2);
+		addPion("M", 2, 3);
+
+		// ajout des pions 3 points
+		addPion("B", 3, 2);
+		addPion("C", 3, 2);
+		addPion("P", 3, 2);
+
+		// ajout des pions 4 pionts
+		addPion("F", 4, 2);
+		addPion("H", 4, 2);
+		addPion("V", 4, 2);
+
+		// ajout des pions 8 points
+		addPion("J", 8, 1);
+		addPion("Q", 8, 1);
+
+		// ajout des pions 10 points
+		addPion("K", 10, 1);
+		addPion("W", 10, 1);
+		addPion("X", 10, 1);
+		addPion("Y", 10, 1);
+		addPion("Z", 10, 1);
+	}
+
+	// ajouter un pion une ou plusieurs fois
+	public void addPion(String letter, int point, int nb) {
+		for (int i = 0; i < nb; i++) {
+			this.sacPions.add(new Pion(letter, point));
+		}
+	}
+
+	// ajouter les joker dans le sac
+	public void addJoker(String letter, int point, boolean joker) {
+		this.sacPions.add(new Pion(letter, point, joker));
+		this.sacPions.add(new Pion(letter, point, joker));
+	}
+
+	public void showSacPion() {
+		for (int i = 0; i < this.sacPions.size(); i++) {
+			System.out.println("[" + i + "] " + this.sacPions.get(i).getLetter() + " " + this.sacPions.get(i).getPoint()
+					+ " " + this.sacPions.get(i).isJoker());
+		}
 	}
 
 	/* GETTERS AND SETTERS */
