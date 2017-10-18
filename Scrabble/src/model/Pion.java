@@ -13,6 +13,7 @@ public class Pion {
 	private boolean placed;
 	private boolean joker;
 	private Case casee;
+	private boolean fixed;
 
 	/* CONSTRUCTOR(S) */
 	public Pion(String letter, int point) {
@@ -20,6 +21,7 @@ public class Pion {
 		this.point = point;
 		this.setJoker(false);
 		this.setPlaced(false);
+		this.setFixed(false);
 	}
 
 	public Pion(String letter, int point, boolean joker) {
@@ -38,6 +40,14 @@ public class Pion {
 	}
 
 	/* GETTERS AND SETTERS */
+	public boolean isFixed() {
+		return this.fixed;
+	}
+
+	public void setFixed(boolean fixed) {
+		this.fixed = fixed;
+	}
+
 	public String getLetter() {
 		return letter;
 	}

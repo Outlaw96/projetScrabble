@@ -27,7 +27,20 @@ public class PlateauListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		if (this.pv.isSkiping(e.getX(), e.getY())) {
+			System.out.println("skip");
+		} else if (this.pv.isSwapping(e.getX(), e.getY())) {
+			System.out.println("swap");
+		} else if (this.pv.isMixing(e.getX(), e.getY())) {
+			System.out.println("mix");
+			this.jr.mix();
+			this.jr.showChevalet();
+			this.pv.repaint();
+		} else if (this.pv.isRetrieving(e.getX(), e.getY())) {
+			System.out.println("retrieve");
+		} else if (this.pv.isPlaying(e.getX(), e.getY())) {
+			System.out.println("play");
+		}
 	}
 
 	@Override

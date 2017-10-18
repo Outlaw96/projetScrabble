@@ -7,7 +7,7 @@ package model;
  *         différentes types de case dans un plateau de jeu de scrabble
  */
 public enum TypeCase {
-	MS("+ ", 1), MT("3W", 3), MD("2W", 2), LT("3L", 3), LD("2L", 2);
+	MS(" ", 1), MT("MT", 3), MD("MD", 2), LT("LT", 3), LD("LD", 2);
 
 	private final int multiplicateur;
 	private final String libelle;

@@ -20,7 +20,7 @@ import model.Plateau;
  */
 public class PlateauView extends JPanel {
 	private Plateau plateau;
-	private int xP, yP, sizeCaz, yIA, yHum;
+	private int xP, yP, sizeCaz, yIA, yHum, yB, sizeButton;
 	private Joueur[] players;
 	private Partie partie;
 
@@ -46,7 +46,7 @@ public class PlateauView extends JPanel {
 		// this.players[0].showChevalet();
 		// this.players[1].showChevalet();
 		this.partie.showSacPion();
-		
+
 		this.plateau.initPlateau();
 		this.plateau.addMD();
 		this.plateau.addMT();
@@ -58,10 +58,58 @@ public class PlateauView extends JPanel {
 		this.xP = 50;
 		this.yP = 60;
 		this.sizeCaz = 30;
+		this.sizeButton = 80;
 
 		// Coord Y chevalet humain
 		this.yHum = (this.yP + this.sizeCaz * 15) + 15;
+		this.yB = this.yHum + 50;
 		this.addMouseListener(new PlateauListener(this, this.plateau, this.players[1]));
+	}
+
+	// Desinner les boutons en dessous du chevalet joueur
+	public void drawButtons(Graphics g) {
+		for (int i = 0; i < 5; i++) {
+			g.setColor(Color.BLACK);
+			g.fill3DRect(this.xP, this.yB, this.sizeButton, this.sizeCaz, true);
+			this.xP += 90;
+		}
+		this.xP = 50;
+	}
+
+	// Ecrire le nom de boutons
+	public void drawNameButtons(Graphics g) {
+		g.setColor(Color.WHITE);
+		g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
+		g.drawString("Passer", this.xP + 10, this.yB + this.sizeCaz * 2 / 3);
+		g.drawString("Echanger", this.xP + 100, this.yB + this.sizeCaz * 2 / 3);
+		g.drawString("Mélanger", this.xP + 190, this.yB + this.sizeCaz * 2 / 3);
+		g.drawString("Récup.", this.xP + 280, this.yB + this.sizeCaz * 2 / 3);
+		g.drawString("Jouer", this.xP + 370, this.yB + this.sizeCaz * 2 / 3);
+	}
+
+	// Cliquer sur le bouton passer
+	public boolean isSkiping(int x, int y) {
+		return (x > this.xP && x < this.xP + this.sizeButton && y > this.yB && y < this.yB + this.sizeCaz);
+	}
+
+	// Cliquer sur le bouton échanger les pions
+	public boolean isSwapping(int x, int y) {
+		return (x > this.xP + 90 && x < this.xP + 90 + +this.sizeButton && y > this.yB && y < this.yB + this.sizeCaz);
+	}
+
+	// Cliquer sur le bouton mélanger les pions
+	public boolean isMixing(int x, int y) {
+		return (x > this.xP + 180 && x < this.xP + 180 + this.sizeButton && y > this.yB && y < this.yB + this.sizeCaz);
+	}
+
+	// Cliquer sur le bouton récupérer les pions
+	public boolean isRetrieving(int x, int y) {
+		return (x > this.xP + 270 && x < this.xP + 270 + this.sizeButton && y > this.yB && y < this.yB + this.sizeCaz);
+	}
+
+	// Cliquer sur le bouton jouer
+	public boolean isPlaying(int x, int y) {
+		return (x > this.xP + 360 && x < this.xP + 360 + this.sizeButton && y > this.yB && y < this.yB + this.sizeCaz);
 	}
 
 	/**
@@ -105,6 +153,14 @@ public class PlateauView extends JPanel {
 				caz.getCoordY() + this.sizeCaz - 1);
 	}
 
+	// Ecrire la dscription des différents type de case multiplicateurs
+	public void writeCase(Graphics g, Case caz) {
+		g.setColor(Color.YELLOW);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+		g.drawString(caz.getTypeCase().getLibelle(), caz.getCoordX() + this.sizeCaz * 1 / 5,
+				caz.getCoordY() + this.sizeCaz * 2 / 3);
+	}
+
 	/**
 	 * Déssiner une case du plateau
 	 * 
@@ -123,6 +179,7 @@ public class PlateauView extends JPanel {
 		} else {
 			g.setColor(getCaseColor(caz));
 			g.fill3DRect(caz.getCoordX(), caz.getCoordY(), size, size, false);
+			writeCase(g, caz);
 		}
 	}
 
@@ -325,5 +382,7 @@ public class PlateauView extends JPanel {
 		// desinner les deux chevalets
 		drawChevalet(g, this.players[1], this.yHum);
 		drawChevalet(g, this.players[0], this.yIA);
+		drawButtons(g);
+		drawNameButtons(g);
 	}
 }
