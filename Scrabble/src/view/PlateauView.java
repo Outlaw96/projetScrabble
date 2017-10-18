@@ -66,6 +66,18 @@ public class PlateauView extends JPanel {
 		this.addMouseListener(new PlateauListener(this, this.plateau, this.players[1]));
 	}
 
+	// Recupérer tous les pions du joueurs placés sur le plateau
+	public void retrieve() {
+		for (int i = 0; i < this.plateau.getCases().length; i++) {
+			for (int j = 0; j < this.plateau.getCases()[i].length; j++) {
+				if (this.plateau.getCases()[i][j].isTaken() && !this.plateau.getCases()[i][j].getPion().isFixed()) {
+					this.players[1].addPion(this.players[1].getCount(), this.plateau.getCases()[i][j].getPion());
+					this.plateau.removePion(i, j);
+				}
+			}
+		}
+	}
+
 	// Desinner les boutons en dessous du chevalet joueur
 	public void drawButtons(Graphics g) {
 		for (int i = 0; i < 5; i++) {

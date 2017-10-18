@@ -38,6 +38,9 @@ public class PlateauListener implements MouseListener {
 			this.pv.repaint();
 		} else if (this.pv.isRetrieving(e.getX(), e.getY())) {
 			System.out.println("retrieve");
+			this.pv.retrieve();
+			this.jr.showChevalet();
+			this.pv.repaint();
 		} else if (this.pv.isPlaying(e.getX(), e.getY())) {
 			System.out.println("play");
 		}
@@ -89,11 +92,11 @@ public class PlateauListener implements MouseListener {
 			int y = this.pv.getY(e.getX());
 			if (!this.pl.getCases()[x][y].isTaken() && this.pion != null) {
 				if (this.i >= 0 && this.j >= 0) {
-					this.pl.getCases()[x][y].addPion(this.pion);
-					this.pl.getCases()[i][j].removePion();
+					this.pl.addPion(x, y, this.pion);
+					this.pl.removePion(i, j);
 				} else if (this.index >= 0) {
-					this.pl.getCases()[x][y].addPion(this.pion);
-					this.jr.getChevalet()[this.index].removePion();
+					this.pl.addPion(x, y, this.pion);
+					this.jr.removePion(this.index);
 				}
 			}
 		} else if (e.getY() > 510 && e.getY() < 555 && e.getX() > 50 && e.getX() < 260) {
@@ -101,11 +104,11 @@ public class PlateauListener implements MouseListener {
 			if (x >= 0) {
 				if (!this.jr.getChevalet()[x].isTaken()) {
 					if (this.i >= 0 && this.j >= 0) {
-						this.jr.getChevalet()[x].addPion(this.pion);
-						this.pl.getCases()[i][j].removePion();
+						this.jr.addPion(x, this.pion);
+						this.pl.removePion(i, j);
 					} else if (this.index >= 0) {
-						this.jr.getChevalet()[x].addPion(this.pion);
-						this.jr.getChevalet()[this.index].removePion();
+						this.jr.addPion(x, this.pion);
+						this.jr.removePion(this.index);
 					}
 				}
 			}
