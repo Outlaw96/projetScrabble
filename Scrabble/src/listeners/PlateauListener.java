@@ -32,10 +32,12 @@ public class PlateauListener implements MouseListener {
 		} else if (this.pv.isSwapping(e.getX(), e.getY())) {
 			System.out.println("swap");
 		} else if (this.pv.isMixing(e.getX(), e.getY())) {
-			System.out.println("mix");
-			this.jr.mix();
-			this.jr.showChevalet();
-			this.pv.repaint();
+			if (this.jr.isFull()) {
+				System.out.println("mix");
+				this.jr.mix();
+				this.jr.showChevalet();
+				this.pv.repaint();
+			}
 		} else if (this.pv.isRetrieving(e.getX(), e.getY())) {
 			System.out.println("retrieve");
 			this.pv.retrieve();

@@ -96,6 +96,16 @@ public class Joueur {
 		this.count++;
 	}
 
+	// Ajouter un pion dans le premier case vide trouvé
+	public void addPion(Pion p) {
+		for (int i = 0; i < this.chevalet.length; i++) {
+			if (!this.chevalet[i].isTaken()) {
+				this.addPion(i, p);
+				return;
+			}
+		}
+	}
+
 	public void removePion(int i) {
 		this.chevalet[i].removePion();
 		this.count--;
@@ -137,11 +147,9 @@ public class Joueur {
 	 * mélangez aléatoirement les pions sur le chevalet d'un joueur
 	 */
 	public void mix() {
-		if (this.isFull()) {
-			for (int i = 0; i < this.chevalet.length; i++) {
-				int x = rand.nextInt(this.chevalet.length);
-				swapp(i, x);
-			}
+		for (int i = 0; i < this.chevalet.length; i++) {
+			int x = rand.nextInt(this.chevalet.length);
+			swapp(i, x);
 		}
 	}
 

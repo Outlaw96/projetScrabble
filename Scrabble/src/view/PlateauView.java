@@ -71,7 +71,7 @@ public class PlateauView extends JPanel {
 		for (int i = 0; i < this.plateau.getCases().length; i++) {
 			for (int j = 0; j < this.plateau.getCases()[i].length; j++) {
 				if (this.plateau.getCases()[i][j].isTaken() && !this.plateau.getCases()[i][j].getPion().isFixed()) {
-					this.players[1].addPion(this.players[1].getCount(), this.plateau.getCases()[i][j].getPion());
+					this.players[1].addPion(this.plateau.getCases()[i][j].getPion());
 					this.plateau.removePion(i, j);
 				}
 			}
