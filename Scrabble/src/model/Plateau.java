@@ -14,6 +14,64 @@ public class Plateau {
 		this.cases = new Case[size][size];
 	}
 
+	// fonction qui permet de vérifier si un pion à un voisin à droite
+	public boolean hasNeighbourRight(int i, int j) {
+		assert (j < this.cases.length);
+		return this.cases[i][j + 1].isTaken();
+	}
+
+	// fonction pour vérifier qu'un pion a un voisin en dessous
+	public boolean hasNeighbourDown(int i, int j) {
+		assert (i < this.cases.length);
+		return this.cases[i + 1][j].isTaken();
+	}
+
+	// créer un mot retrouver sur les lignes horizontales
+	public Mot createWordHorizontal(int i) {
+		Mot m = new Mot();
+		boolean isCreating = true;
+		int j = 0;
+		while (j < this.cases.length && isCreating == true) {
+			if (this.cases[i][j].isTaken()) {
+				m.addPion(this.cases[i][j].getPion());
+				j++;
+			} else
+				isCreating = false;
+		}
+		return m;
+	}
+
+	// créer un mot retrouver sur les lignes vertificales
+	public Mot createWordVertical(int j) {
+		Mot m = new Mot();
+		boolean isCreating = true;
+		int i = 0;
+		while (i < this.cases.length && isCreating == true) {
+			if (this.cases[i][j].isTaken()) {
+				m.addPion(this.cases[i][j].getPion());
+				i++;
+			} else
+				isCreating = false;
+		}
+		return m;
+	}
+
+	// retrouver les mots placés par le joueur
+	public void playWord() {
+		for (int i = 0; i < this.getCases().length; i++) {
+			for (int j = 0; j < this.cases[i].length; j++) {
+				if (!this.cases[i][j].getPion().isFixed()) {
+					if (hasNeighbourDown(i, j)) {
+						createWordVertical(j);
+						return;
+					} else if (hasNeighbourRight(i, j)) {
+						createWordHorizontal(i);
+					}
+				}
+			}
+		}
+	}
+
 	/* METHODES */
 	public void initPlateau() {
 		for (int i = 0; i < cases.length; i++) {
