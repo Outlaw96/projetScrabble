@@ -15,8 +15,6 @@ import javax.swing.JPanel;
  */
 public class PartieView extends JFrame {
 	private PlateauView plateauView;
-	private JPanel fond;
-	private JoueurView joueurView;
 
 	public PartieView() {
 		/*-----------------------------------------------------------

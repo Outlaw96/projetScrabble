@@ -33,7 +33,7 @@ public class PlateauView extends JPanel {
 		this.players = new Joueur[2];
 
 		// initialisation des deux joueurs
-		this.players[1] = new Joueur("Player1", true, this.partie);
+		this.players[1] = new Joueur("J1", true, this.partie);
 		this.players[0] = new Joueur("IA", false, this.partie);
 
 		// initialisation des chevalet des joueurs
@@ -82,13 +82,40 @@ public class PlateauView extends JPanel {
 
 	// dessiner le minuteur
 	public void drawMinuteur(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(xTool, yP, this.sizeTool, 200);
+		g.setColor(new Color(84, 130, 53));
+		g.fillRect(xTool, yP, this.sizeTool, 100);
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Courier new", Font.BOLD, 20));
-		g.drawString("Minuteur", this.xTool + this.sizeTool * 1 / 4, xP + 30);
+		g.setFont(new Font("Courier new", Font.BOLD, 30));
+		g.drawString("Minuteur", (this.xTool + this.sizeTool * 1 / 4) -20, (xP + 30) + 10);
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-		g.drawString("00 : 00", this.xTool + this.sizeTool * 1 / 4, xP + 60);
+		g.drawString("00 : 00", this.xTool + this.sizeTool * 1 / 4, (xP + 60) + 20);
+	}
+	
+	//dessiner score joeur
+	public void drawScore(Graphics g)
+	{
+		g.setColor(new Color(84, 130, 53));
+		g.fillRect(xTool, yP + 120, this.sizeTool, 200);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Courier new", Font.BOLD, 30));
+		g.drawString("Score", (this.xTool + this.sizeTool * 1 / 4), (xP + 30) + 130);
+		g.drawString("IA", (this.xTool + this.sizeTool * 1 / 4) - 30, xP + 200);
+		g.drawString("J1", (this.xTool + this.sizeTool * 1 / 4) + 90, xP + 200);
+		g.setFont(new Font("Century", Font.ITALIC, 40));
+		g.drawString("Vs", (this.xTool + this.sizeTool * 1 / 4) + 20, xP + 240);
+		g.setFont(new Font("Century", Font.BOLD, 28));
+		g.drawString(""+this.players[0].getPoints(), (this.xTool + this.sizeTool * 1 / 4) - 30, xP + 260); //IA
+		g.drawString(""+this.players[1].getPoints(), (this.xTool + this.sizeTool * 1 / 4) + 90, xP + 260); //J1		
+	}
+	
+	//dessiner la partie dico
+	public void drawDictionnaire(Graphics g)
+	{
+		g.setColor(new Color(84, 130, 53));
+		g.fillRect(xTool, yP + 400, this.sizeTool, 50);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Century", Font.BOLD, 30));
+		g.drawString("Dictionnaire", (this.xTool + this.sizeTool * 1 / 4) - 47, (xP + 30) + 420);
 	}
 
 	// Desinner les boutons en dessous du chevalet joueur
@@ -135,6 +162,12 @@ public class PlateauView extends JPanel {
 	// Cliquer sur le bouton jouer
 	public boolean isPlaying(int x, int y) {
 		return (x > this.xP + 360 && x < this.xP + 360 + this.sizeButton && y > this.yB && y < this.yB + this.sizeCaz);
+	}
+	
+	//cliquer sur le bouton dictionnaire
+	public boolean isSearching(int x, int y)
+	{
+		return (x >= 550 && x <= 750) && (y >= 460 && y <= 510);
 	}
 
 	/**
@@ -410,6 +443,8 @@ public class PlateauView extends JPanel {
 		drawChevalet(g, this.players[1], this.yHum);
 		drawChevalet(g, this.players[0], this.yIA);
 		drawMinuteur(g);
+		drawScore(g);
+		drawDictionnaire(g);
 		drawButtons(g);
 		drawNameButtons(g);
 	}
