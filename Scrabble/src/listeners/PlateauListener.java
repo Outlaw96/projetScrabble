@@ -3,7 +3,6 @@ package listeners;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import model.Dictionnaire;
 import model.Joueur;
 import model.Pion;
 import model.Plateau;
@@ -45,12 +44,12 @@ public class PlateauListener implements MouseListener {
 			this.jr.showChevalet();
 			this.pv.repaint();
 		} else if (this.pv.isPlaying(e.getX(), e.getY())) {
+			this.pl.playWord();
+			this.pl.showWords();
 			System.out.println("play");
-		}
-		else if( this.pv.isSearching(e.getX(), e.getY()))
-		{
-			//dans ce cas on affiche le formulaire 
-			 new Dictionnaire();
+		} else if (this.pv.isSearching(e.getX(), e.getY())) {
+			// dans ce cas on affiche le formulaire
+			// new Dictionnaire();
 		}
 	}
 

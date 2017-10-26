@@ -12,26 +12,24 @@ public class Plateau {
 	public Plateau(int size) {
 		this.size = size;
 		this.cases = new Case[size][size];
+		this.mots = new ArrayList<>();
 	}
 
 	// fonction qui permet de vérifier si un pion à un voisin à droite
 	public boolean hasNeighbourRight(int i, int j) {
-		assert (j < this.cases.length);
-		return this.cases[i][j + 1].isTaken();
+		return this.cases[i][j + 1].isTaken() && j + 1 < this.cases.length;
 	}
 
 	// fonction pour vérifier qu'un pion a un voisin en dessous
 	public boolean hasNeighbourDown(int i, int j) {
-		assert (i < this.cases.length);
-		return this.cases[i + 1][j].isTaken();
+		return this.cases[i + 1][j].isTaken() && i + 1 < this.cases.length;
 	}
 
 	// créer un mot retrouver sur les lignes horizontales
-	public Mot createWordHorizontal(int i) {
+	public Mot createWordHorizontal(int i, int j) {
 		Mot m = new Mot();
 		boolean isCreating = true;
-		int j = 0;
-		while (j < this.cases.length && isCreating == true) {
+		while (j <= this.cases.length - 1 && isCreating == true) {
 			if (this.cases[i][j].isTaken()) {
 				m.addPion(this.cases[i][j].getPion());
 				j++;
@@ -42,11 +40,10 @@ public class Plateau {
 	}
 
 	// créer un mot retrouver sur les lignes vertificales
-	public Mot createWordVertical(int j) {
+	public Mot createWordVertical(int i, int j) {
 		Mot m = new Mot();
 		boolean isCreating = true;
-		int i = 0;
-		while (i < this.cases.length && isCreating == true) {
+		while (i <= this.cases.length - 1 && isCreating == true) {
 			if (this.cases[i][j].isTaken()) {
 				m.addPion(this.cases[i][j].getPion());
 				i++;
@@ -58,17 +55,30 @@ public class Plateau {
 
 	// retrouver les mots placés par le joueur
 	public void playWord() {
+		System.out.println(this.cases.length);
 		for (int i = 0; i < this.getCases().length; i++) {
 			for (int j = 0; j < this.cases[i].length; j++) {
-				if (!this.cases[i][j].getPion().isFixed()) {
-					if (hasNeighbourDown(i, j)) {
-						createWordVertical(j);
+				if (this.cases[i][j].isTaken() && !this.cases[i][j].getPion().isFixed()) {
+					if (hasNeighbourDown(i, j) && hasNeighbourRight(i, j)) {
+						this.mots.add(createWordVertical(i, j));
+						this.mots.add(createWordHorizontal(i, j));
+						return;
+					} else if (hasNeighbourDown(i, j)) {
+						this.mots.add(createWordVertical(i, j));
 						return;
 					} else if (hasNeighbourRight(i, j)) {
-						createWordHorizontal(i);
+						this.mots.add(createWordHorizontal(i, j));
+						return;
 					}
 				}
 			}
+		}
+	}
+
+	// afficher les mots
+	public void showWords() {
+		for (int i = 0; i < this.mots.size(); i++) {
+			System.out.println(this.mots.get(i).getWord());
 		}
 	}
 
