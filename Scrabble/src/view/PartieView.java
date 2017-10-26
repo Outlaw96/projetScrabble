@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,7 +14,6 @@ import javax.swing.JPanel;
  *
  */
 public class PartieView extends JFrame {
-	private MainContainer mainContainer;
 	private PlateauView plateauView;
 	private JPanel fond;
 	private JoueurView joueurView;
@@ -27,20 +27,20 @@ public class PartieView extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Scrabble Game Projet By Nicolas and Mohamed  (2017 © - All rights reserved.)");
+		this.setTitle("Scrabble Game");
 
 		/*-----------------------------------------------------------
 		 * préparation du contenu de la fenêtre
 		 * ----------------------------------------------------------
 		 */
-		this.mainContainer = new MainContainer();
+		this.plateauView = new PlateauView();
 
 		/*-----------------------------------------------------------
 		 * Ajout du contenu de la fenêtre
 		 * ----------------------------------------------------------
 		 */
 
-		this.setContentPane(mainContainer);
+		this.setContentPane(plateauView);
 		/*
 		 * this.plateauView = new PlateauView(); this.joueurView = new
 		 * JoueurView();

@@ -20,7 +20,7 @@ import model.Plateau;
  */
 public class PlateauView extends JPanel {
 	private Plateau plateau;
-	private int xP, yP, sizeCaz, yIA, yHum, yB, sizeButton;
+	private int xP, yP, sizeCaz, yIA, yHum, yB, sizeButton, xTool, sizeTool;
 	private Joueur[] players;
 	private Partie partie;
 
@@ -59,6 +59,8 @@ public class PlateauView extends JPanel {
 		this.yP = 60;
 		this.sizeCaz = 30;
 		this.sizeButton = 80;
+		this.xTool = 550;
+		this.sizeTool = 200;
 
 		// Coord Y chevalet humain
 		this.yHum = (this.yP + this.sizeCaz * 15) + 15;
@@ -76,6 +78,17 @@ public class PlateauView extends JPanel {
 				}
 			}
 		}
+	}
+
+	// dessiner le minuteur
+	public void drawMinuteur(Graphics g) {
+		g.setColor(Color.GREEN);
+		g.fillRect(xTool, yP, this.sizeTool, 200);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Courier new", Font.BOLD, 20));
+		g.drawString("Minuteur", this.xTool + this.sizeTool * 1 / 4, xP + 30);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		g.drawString("00 : 00", this.xTool + this.sizeTool * 1 / 4, xP + 60);
 	}
 
 	// Desinner les boutons en dessous du chevalet joueur
@@ -390,10 +403,13 @@ public class PlateauView extends JPanel {
 	}
 
 	public void paint(Graphics g) {
+		g.setColor(new Color(31, 78, 120));
+		g.fillRect(0, 0, this.getWidth(), this.getWidth());
 		drawPlateau(g);
 		// desinner les deux chevalets
 		drawChevalet(g, this.players[1], this.yHum);
 		drawChevalet(g, this.players[0], this.yIA);
+		drawMinuteur(g);
 		drawButtons(g);
 		drawNameButtons(g);
 	}

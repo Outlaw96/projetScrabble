@@ -23,6 +23,17 @@ public class Plateau {
 		}
 	}
 
+	// Rechercher les mots placés verticalement
+	public void searchMotVertical() {
+		for (int i = 0; i < this.size; i++) {
+			for (int j = 0; j < this.size; j++) {
+				if (this.cases[i][j].isTaken() && this.cases[i][j + 1].isTaken()) {
+
+				}
+			}
+		}
+	}
+
 	/**
 	 * pour vérifier si le plateau est vide
 	 * 

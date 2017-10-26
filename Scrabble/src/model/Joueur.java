@@ -11,12 +11,14 @@ public class Joueur {
 	private Case chevalet[];
 	private Random rand;
 	private Partie partie;
+	private int points;
 
 	public Joueur(String pseudo, boolean human, Partie partie) {
 		this.pseudo = pseudo;
 		this.winner = false;
 		this.chevalet = new Case[7];
 		this.count = 0;
+		this.points = 0;
 		rand = new Random();
 		this.partie = partie;
 	}
@@ -48,6 +50,14 @@ public class Joueur {
 
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 	public boolean isWinner() {
