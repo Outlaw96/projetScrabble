@@ -8,6 +8,7 @@ import model.Joueur;
 import model.Pion;
 import model.Plateau;
 import view.PlateauView;
+import view.SwapPions;
 
 public class PlateauListener implements MouseListener {
 	private PlateauView pv;
@@ -30,25 +31,31 @@ public class PlateauListener implements MouseListener {
 		// TODO Auto-generated method stub
 		if (this.pv.isSkiping(e.getX(), e.getY())) {
 			System.out.println("skip");
-		} else if (this.pv.isSwapping(e.getX(), e.getY())) {
-			System.out.println("swap");
-		} else if (this.pv.isMixing(e.getX(), e.getY())) {
+		} 
+		else if (this.pv.isSwapping(e.getX(), e.getY())) 
+		{
+			new SwapPions(jr.getChevalet());
+		} 
+		else if (this.pv.isMixing(e.getX(), e.getY())) {
 			if (this.jr.isFull()) {
 				System.out.println("mix");
 				this.jr.mix();
 				this.jr.showChevalet();
 				this.pv.repaint();
 			}
-		} else if (this.pv.isRetrieving(e.getX(), e.getY())) {
+		} 
+		else if (this.pv.isRetrieving(e.getX(), e.getY())) {
 			System.out.println("retrieve");
 			this.pv.retrieve();
 			this.jr.showChevalet();
 			this.pv.repaint();
-		} else if (this.pv.isPlaying(e.getX(), e.getY())) {
+		} 
+		else if (this.pv.isPlaying(e.getX(), e.getY())) {
 			this.pl.playWord();
 			this.pl.showWords();
 			System.out.println("play");
-		} else if (this.pv.isSearching(e.getX(), e.getY())) {
+		} 
+		else if (this.pv.isSearching(e.getX(), e.getY())) {
 			// dans ce cas on affiche le formulaire
 			new Dictionnaire();
 		}
