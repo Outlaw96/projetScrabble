@@ -38,7 +38,7 @@ public class Dictionnaire extends JPanel {
 			}
 			// Sinon on cherche le mot dans le dico
 			else {
-				// System.out.println(System.getProperty("user.dir"));
+				 System.out.println("Je suis dans "+System.getProperty("user.dir"));
 
 				// le dictionnaire se situe en l'emplacement /src/script/francais.dic.txt
 				File fichier = new File("src/script/francais.dic.txt");
