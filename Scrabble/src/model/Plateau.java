@@ -55,7 +55,6 @@ public class Plateau {
 
 	// retrouver les mots placés par le joueur
 	public void playWord() {
-		System.out.println(this.cases.length);
 		for (int i = 0; i < this.getCases().length; i++) {
 			for (int j = 0; j < this.cases[i].length; j++) {
 				if (this.cases[i][j].isTaken() && !this.cases[i][j].getPion().isFixed()) {
@@ -78,7 +77,7 @@ public class Plateau {
 	// afficher les mots
 	public void showWords() {
 		for (int i = 0; i < this.mots.size(); i++) {
-			System.out.println(this.mots.get(i).getWord());
+			System.out.println(this.mots.get(i).getWord() + " " + this.mots.get(i).getPoints());
 		}
 	}
 
