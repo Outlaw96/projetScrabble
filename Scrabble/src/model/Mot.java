@@ -47,6 +47,16 @@ public class Mot {
 		return this.pions.get(indexPion);
 	}
 
+	public boolean contains(Pion p) {
+		boolean contains = false;
+		for (int i = 0; i < this.pions.size(); i++) {
+			if (this.pions.get(i) == p) {
+				contains = true;
+			}
+		}
+		return contains;
+	}
+
 	/**
 	 * getPoints() fonction qui renvoie le nombre de points d'un mot placé sur
 	 * le scrabble.

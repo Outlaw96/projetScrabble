@@ -17,12 +17,48 @@ public class Plateau {
 
 	// fonction qui permet de vérifier si un pion à un voisin à droite
 	public boolean hasNeighbourRight(int i, int j) {
-		return this.cases[i][j + 1].isTaken() && j + 1 < this.cases.length;
+		if (j < this.cases.length - 1)
+			return this.cases[i][j + 1].isTaken();
+		return false;
 	}
 
 	// fonction pour vérifier qu'un pion a un voisin en dessous
 	public boolean hasNeighbourDown(int i, int j) {
-		return this.cases[i + 1][j].isTaken() && i + 1 < this.cases.length;
+		if (i < this.cases.length - 1)
+			return this.cases[i + 1][j].isTaken();
+		return false;
+	}
+
+	// fonction qui permet de vérifier si un pion à un voisin à gauche
+	public boolean hasNeighbourLeft(int i, int j) {
+		if (j > 0)
+			return this.cases[i][j - 1].isTaken();
+		return false;
+	}
+
+	// fonction pour vérifier qu'un pion a un voisin au dessus
+	public boolean hasNeighbourUp(int i, int j) {
+		if (i > 0)
+			return this.cases[i - 1][j].isTaken();
+		return false;
+	}
+
+	// retour à la première lettre du mot
+	public void backToFirst(int i, int j) {
+		if (hasNeighbourUp(i, j)) {
+
+		}
+	}
+
+	// valider un mot et fixer tous ses pions
+	public void fixPions() {
+		for (int i = 0; i < this.cases.length; i++) {
+			for (int j = 0; j < this.cases[i].length; j++) {
+				if (!this.cases[i][j].getPion().isFixed()) {
+					this.cases[i][j].getPion().setFixed(true);
+				}
+			}
+		}
 	}
 
 	// créer un mot retrouver sur les lignes horizontales
@@ -79,6 +115,25 @@ public class Plateau {
 		for (int i = 0; i < this.mots.size(); i++) {
 			System.out.println(this.mots.get(i).getWord() + " " + this.mots.get(i).getPoints());
 		}
+	}
+
+	// fonction pour recupérer le multiplicateur des cases où le mot est placé
+	public int getMultiple(Mot mot) {
+		int multiple = 1;
+		for (int i = 0; i < this.cases.length; i++) {
+			for (int j = 0; j < this.cases[i].length; j++) {
+				if (this.cases[i][j].isTaken() && mot.contains(this.cases[i][j].getPion())) {
+					multiple *= this.cases[i][j].getTypeCase().getMultiplicateur();
+				}
+			}
+		}
+		return multiple;
+	}
+
+	// fonction pour calculer les points d'un mot en fonction des cases où il
+	// est placé
+	public int getPoints(Mot mot) {
+		return mot.getPoints() * this.getMultiple(mot);
 	}
 
 	/* METHODES */
