@@ -6,6 +6,11 @@ public class Mot {
 	private String libelle;
 	private ArrayList<Pion> pions;
 
+	public Mot() {
+		this.libelle = "";
+		this.pions = new ArrayList<>();
+	}
+
 	public Mot(ArrayList<Pion> pions) {
 		// détermination du libelle à partir de la liste de pions reçus en
 		// argument
@@ -16,11 +21,13 @@ public class Mot {
 			libelle = libelle + "" + p.getLetter();
 			this.pions.add(p);
 		}
-
 	}
 
 	public String getWord() {
-		return libelle;
+		for (int i = 0; i < this.pions.size(); i++) {
+			this.libelle += this.pions.get(i).getLetter();
+		}
+		return this.libelle;
 	}
 
 	public void setLibelle(String libelle) {
