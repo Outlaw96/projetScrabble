@@ -67,7 +67,7 @@ public class Plateau {
 		boolean isCreating = true;
 		while (j <= this.cases.length - 1 && isCreating == true) {
 			if (this.cases[i][j].isTaken()) {
-				m.addPion(this.cases[i][j].getPion());
+				m.addCase(this.cases[i][j]);
 				j++;
 			} else
 				isCreating = false;
@@ -81,12 +81,16 @@ public class Plateau {
 		boolean isCreating = true;
 		while (i <= this.cases.length - 1 && isCreating == true) {
 			if (this.cases[i][j].isTaken()) {
-				m.addPion(this.cases[i][j].getPion());
+				m.addCase(this.cases[i][j]);
 				i++;
 			} else
 				isCreating = false;
 		}
 		return m;
+	}
+
+	public void removeLastWord() {
+		this.mots.remove(this.mots.size() - 1);
 	}
 
 	// retrouver les mots placés par le joueur
@@ -113,7 +117,8 @@ public class Plateau {
 	// afficher les mots
 	public void showWords() {
 		for (int i = 0; i < this.mots.size(); i++) {
-			System.out.println(this.mots.get(i).getWord() + " " + this.mots.get(i).getPoints());
+			System.out.println(this.mots.get(i).getWord());
+			System.out.println(this.mots.get(i).getPoints());
 		}
 	}
 

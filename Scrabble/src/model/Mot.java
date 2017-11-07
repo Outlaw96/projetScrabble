@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Mot {
 	private String libelle;
-	private ArrayList<Pion> pions;
+	private ArrayList<Case> lesCases;
 
 	public Mot() {
 		this.libelle = "";
-		this.pions = new ArrayList<>();
+		this.lesCases = new ArrayList<>();
 	}
 
 	public Mot(ArrayList<Pion> pions) {
@@ -16,13 +16,12 @@ public class Mot {
 		// argument
 		// et initialisation de l'attribut pions
 		libelle = "";
-		this.pions = new ArrayList<>();
 	}
 
 	// obtenir un mot a partir des pions
 	public String getWord() {
-		for (int i = 0; i < this.pions.size(); i++) {
-			this.libelle += this.pions.get(i).getLetter();
+		for (int i = 0; i < this.lesCases.size(); i++) {
+			this.libelle += this.lesCases.get(i).getPion().getLetter();
 		}
 		return this.libelle;
 	}
@@ -31,26 +30,26 @@ public class Mot {
 		this.libelle = libelle;
 	}
 
-	public ArrayList<Pion> getPions() {
-		return pions;
+	public ArrayList<Case> getCases() {
+		return lesCases;
 	}
 
-	public void setPions(ArrayList<Pion> pions) {
-		this.pions = pions;
+	public void setCases(ArrayList<Case> lesCases) {
+		this.lesCases = lesCases;
 	}
 
-	public void addPion(Pion p) {
-		this.pions.add(p);
+	public void addCase(Case p) {
+		this.lesCases.add(p);
 	}
 
 	public Pion getPion(int indexPion) {
-		return this.pions.get(indexPion);
+		return this.lesCases.get(indexPion).getPion();
 	}
 
 	public boolean contains(Pion p) {
 		boolean contains = false;
-		for (int i = 0; i < this.pions.size(); i++) {
-			if (this.pions.get(i) == p) {
+		for (int i = 0; i < this.lesCases.size(); i++) {
+			if (this.lesCases.get(i).getPion() == p) {
 				contains = true;
 			}
 		}
@@ -63,11 +62,33 @@ public class Mot {
 	 * 
 	 * @return
 	 */
-	public int getPoints() {
+	public int getPointsFromWord() {
 		int points = 0;
-		for (int i = 0; i < this.pions.size(); i++) {
-			points += this.pions.get(i).getPoint();
+		for (int i = 0; i < this.lesCases.size(); i++) {
+			if (this.lesCases.get(i).getTypeCase().getLibelle().equals("MD")
+					|| this.lesCases.get(i).getTypeCase().getLibelle().equals("MT")) {
+				points += this.lesCases.get(i).getPion().getPoint();
+			} else {
+				int a = this.lesCases.get(i).getPion().getPoint()
+						* this.lesCases.get(i).getTypeCase().getMultiplicateur();
+				points += a;
+			}
 		}
 		return points;
+	}
+
+	public int getPointsFromCase() {
+		int points = 1;
+		for (int i = 0; i < this.lesCases.size(); i++) {
+			if (this.lesCases.get(i).getTypeCase().getLibelle().equals("MD")
+					|| this.lesCases.get(i).getTypeCase().getLibelle().equals("MT")) {
+				points *= this.lesCases.get(i).getTypeCase().getMultiplicateur();
+			}
+		}
+		return points;
+	}
+
+	public int getPoints() {
+		return getPointsFromCase() * getPointsFromWord();
 	}
 }
