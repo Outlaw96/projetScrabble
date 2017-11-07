@@ -43,6 +43,17 @@ public class Partie {
 	}
 
 	/**
+	 * ajouter une case (échangée) dans le sac
+	 * @param index : index de la case dans la quelle il faut mettre la case
+	 * @param c : Case à placer
+	 */
+	public void addIntoSac(int index, Pion p)
+	{
+		if(index<this.sacPions.size())
+			this.sacPions.set(index, p);
+	}
+	
+	/**
 	 * Remplir le sac de pions
 	 */
 	public void initSacPion() {

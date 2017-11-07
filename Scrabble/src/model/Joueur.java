@@ -72,6 +72,16 @@ public class Joueur {
 		return chevalet;
 	}
 
+	public Case getChevaletCase(int index)
+	{
+		return this.chevalet[index];
+	}
+	
+	public void setChevaletCase(int index, Pion p)
+	{
+		this.chevalet[index].setPion(p);;
+	}
+	
 	public void setChevalet(Case[] chevalet) {
 		this.chevalet = chevalet;
 	}

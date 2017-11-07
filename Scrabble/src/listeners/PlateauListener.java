@@ -34,7 +34,7 @@ public class PlateauListener implements MouseListener {
 		} 
 		else if (this.pv.isSwapping(e.getX(), e.getY())) 
 		{
-			new SwapPions(jr.getChevalet());
+			new SwapPions(jr.getChevalet(), pv);
 		} 
 		else if (this.pv.isMixing(e.getX(), e.getY())) {
 			if (this.jr.isFull()) {

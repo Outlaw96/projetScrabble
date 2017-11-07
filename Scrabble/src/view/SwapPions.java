@@ -1,8 +1,7 @@
 package view;
 
-import java.awt.Color;
-
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.Case;
 /**
@@ -14,11 +13,11 @@ public class SwapPions extends JFrame{
 	
 	private SwapPionsIHM conteneur;
 	
-	public SwapPions(Case[] chevalet)
+	public SwapPions(Case[] chevalet, PlateauView plateau)
 	{
 		//paramètres de la fenêtre
 		super();
-		this.conteneur = new SwapPionsIHM(chevalet, this);
+		this.conteneur = new SwapPionsIHM(chevalet, this, plateau);
 		this.setContentPane(conteneur);
 		this.setTitle("Echanger mes pions");
 		this.setSize(600, 350);

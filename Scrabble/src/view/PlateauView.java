@@ -448,4 +448,30 @@ public class PlateauView extends JPanel {
 		drawButtons(g);
 		drawNameButtons(g);
 	}
+
+	public Plateau getPlateau() {
+		return plateau;
+	}
+
+	public void setPlateau(Plateau plateau) {
+		this.plateau = plateau;
+	}
+
+	public Joueur getPlayer(int index) {
+		return players[index];
+	}
+
+	public void setPlayers(Joueur[] players) {
+		this.players = players;
+	}
+
+	public Partie getPartie() {
+		return partie;
+	}
+
+	public void setPartie(Partie partie) {
+		this.partie = partie;
+	}
+	
+	
 }

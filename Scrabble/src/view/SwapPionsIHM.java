@@ -3,12 +3,14 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import listeners.SwapListener;
 import model.Case;
+import model.Pion;
 
 /**
  * 
@@ -16,16 +18,18 @@ import model.Case;
  *         l'échange de pion
  */
 public class SwapPionsIHM extends JPanel {
+	private PlateauView pv;
 	private Case[] chevalet;
 	private boolean[] isDrawable;
 	private final int widthCase = 50;
 	private JFrame parent;
 
-	public SwapPionsIHM(Case[] chevalet, JFrame parent) {
+	public SwapPionsIHM(Case[] chevalet, JFrame parent, PlateauView pv) {
 		this.chevalet = new Case[chevalet.length];
 		this.parent = parent;
 		System.out.println("Chevalet contient " + chevalet.length + " lettres");
 		this.chevalet = chevalet;
+		this.pv = pv;
 		this.isDrawable = new boolean[this.chevalet.length];
 		for (int i = 0; i < this.isDrawable.length; i++) {
 			this.isDrawable[i] = true;
@@ -71,14 +75,32 @@ public class SwapPionsIHM extends JPanel {
 	
 	public void echangerPion()
 	{
+		Random r = new Random();
 		for(int i=0;i<this.chevalet.length;i++)
 		{
-			//si le pion courant est à échaner
+			//si le pion courant est à échanger
 			if(!this.isDrawable[i])
 			{
+				//on récupère le contenu de cette case, 
+				Case c = this.chevalet[i];
+				Pion pion = c.getPion();
 				
+				//ensuite on écrase la case du chevalet pour ajouter un nouveau pion tiré aléatoirement
+				int index =r.nextInt(this.pv.getPartie().getSacPions().size()); 
+				Pion p = this.pv.getPartie().getSacPions().get(index);
+				this.chevalet[i].addPion(p);
+				
+				//puis on ajoute le pion du chevalet dans le sac
+				this.pv.getPartie().getSacPions().add(index, pion);
+				
+				//on maj le chevalet du joueur
+				this.pv.getPlayer(1).setChevalet(this.chevalet);
 			}
 		}
+		
+		this.pv.repaint();
+		this.parent.dispose();
+		this.pv.repaint();
 	}
 	public int drawPionsToSwap(Graphics g, Case c, int index, int x) {
 		int toReturn=30;
