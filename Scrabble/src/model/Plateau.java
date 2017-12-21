@@ -2,17 +2,36 @@ package model;
 
 import java.util.ArrayList;
 
+import erreurs.UnknownWord;
+
 public class Plateau {
 
 	private int size;
 	private ArrayList<Mot> mots;
 	private Case[][] cases;
+	private Dictionnaire dictionnaire;
 
 	/* CONSTRUCTOR(S) */
 	public Plateau(int size) {
 		this.size = size;
 		this.cases = new Case[size][size];
 		this.mots = new ArrayList<>();
+		this.dictionnaire = new Dictionnaire();
+	}
+
+	// Pour vérifier si le joueur à réussit à aligner un mot de 7 lettres alors
+	// il aura un bonus
+	public void getBonus(Joueur joueur, Mot mot) {
+		int points = mot.getPoints();
+		if (mot.getCases().size() == 6) {
+			points += 50;
+			joueur.setPoints(points);
+		}
+	}
+
+	// pour vérifier si le case du milieu a été remplit ou pas
+	public boolean hasStarted() {
+		return this.cases[7][7].isTaken();
 	}
 
 	// fonction qui permet de vérifier si un pion à un voisin à droite
@@ -43,10 +62,43 @@ public class Plateau {
 		return false;
 	}
 
-	// retour à la première lettre du mot
-	public void backToFirst(int i, int j) {
-		if (hasNeighbourUp(i, j)) {
+	// retour à la première lettre du mot vertical
+	public void backToFirstVertical(Joueur joueur, int i, int j) {
+		while (hasNeighbourUp(i, j)) {
+			i--;
+		}
+		Mot mot = createWordVertical(i, j);
+		if (dictionnaire.exists(mot)) {
+			this.mots.add(mot);
+			joueur.setPoints(mot.getPoints());
+			getBonus(joueur, mot);
+			joueur.approvisionning();
+			fixPion(mot);
+			initMultiplicateur();
+			return;
+		} else {
+			System.err.println("ACHETE UNE BESCHERELLE");
+			new UnknownWord();
+		}
+	}
 
+	// retour à la première lettre du mot vertical
+	public void backToFirstHorizontal(Joueur joueur, int i, int j) {
+		while (hasNeighbourLeft(i, j)) {
+			j--;
+		}
+		Mot mot = createWordHorizontal(i, j);
+		if (dictionnaire.exists(mot)) {
+			this.mots.add(mot);
+			joueur.setPoints(mot.getPoints());
+			getBonus(joueur, mot);
+			joueur.approvisionning();
+			fixPion(mot);
+			initMultiplicateur();
+			return;
+		} else {
+			System.err.println("ACHETE UNE BESCHERELLE");
+			new UnknownWord();
 		}
 	}
 
@@ -72,6 +124,7 @@ public class Plateau {
 			} else
 				isCreating = false;
 		}
+		m.setVertical(false);
 		return m;
 	}
 
@@ -86,29 +139,66 @@ public class Plateau {
 			} else
 				isCreating = false;
 		}
+		m.setVertical(true);
 		return m;
 	}
 
+	// supprimer eldernier mot valider par lutilisateur
 	public void removeLastWord() {
 		this.mots.remove(this.mots.size() - 1);
 	}
 
-	// retrouver les mots placés par le joueur
-	public void playWord() {
+	// permet au joueur humain de jouer
+	public void playWord(Joueur joueur) {
 		for (int i = 0; i < this.getCases().length; i++) {
 			for (int j = 0; j < this.cases[i].length; j++) {
 				if (this.cases[i][j].isTaken() && !this.cases[i][j].getPion().isFixed()) {
-					if (hasNeighbourDown(i, j) && hasNeighbourRight(i, j)) {
-						this.mots.add(createWordVertical(i, j));
-						this.mots.add(createWordHorizontal(i, j));
-						return;
+					if (hasNeighbourLeft(i, j)) {
+						backToFirstHorizontal(joueur, i, j);
+					} else if (hasNeighbourUp(i, j)) {
+						backToFirstVertical(joueur, i, j);
 					} else if (hasNeighbourDown(i, j)) {
-						this.mots.add(createWordVertical(i, j));
-						return;
+						Mot mot = createWordVertical(i, j);
+						if (dictionnaire.exists(mot)) {
+							this.mots.add(mot);
+							joueur.setPoints(mot.getPoints());
+							getBonus(joueur, mot);
+							joueur.approvisionning();
+							fixPion(mot);
+							initMultiplicateur();
+							break;
+						}
 					} else if (hasNeighbourRight(i, j)) {
-						this.mots.add(createWordHorizontal(i, j));
-						return;
+						Mot mot = createWordHorizontal(i, j);
+						System.out.println(mot.getWord());
+						if (dictionnaire.exists(mot)) {
+							this.mots.add(mot);
+							joueur.setPoints(mot.getPoints());
+							getBonus(joueur, mot);
+							joueur.approvisionning();
+							fixPion(mot);
+							initMultiplicateur();
+							break;
+						}
 					}
+				}
+			}
+		}
+	}
+
+	// pour fixer les mots sur le tableau
+	public void fixPion(Mot mot) {
+		for (int i = 0; i < mot.getCases().size(); i++) {
+			mot.getCases().get(i).getPion().setFixed(true);
+		}
+	}
+
+	// initialiser le multiplicateur de toutes les cases occupé à 1
+	public void initMultiplicateur() {
+		for (int i = 0; i < this.cases.length; i++) {
+			for (int j = 0; j < this.cases.length; j++) {
+				if (this.cases[i][j].isTaken()) {
+					this.cases[i][j].getTypeCase().setMultiplicateur(1);
 				}
 			}
 		}

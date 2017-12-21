@@ -5,16 +5,19 @@ import java.util.ArrayList;
 public class Mot {
 	private String libelle;
 	private ArrayList<Case> lesCases;
+	private boolean vertical;
 
 	public Mot() {
 		this.libelle = "";
 		this.lesCases = new ArrayList<>();
 	}
 
+	public Mot(String libelle) {
+		this.libelle = libelle;
+		lesCases = new ArrayList<>();
+	}
+
 	public Mot(ArrayList<Pion> pions) {
-		// détermination du libelle à partir de la liste de pions reçus en
-		// argument
-		// et initialisation de l'attribut pions
 		libelle = "";
 	}
 
@@ -24,6 +27,14 @@ public class Mot {
 			this.libelle += this.lesCases.get(i).getPion().getLetter();
 		}
 		return this.libelle;
+	}
+
+	public void setVertical(boolean direction) {
+		this.vertical = direction;
+	}
+
+	public boolean getVertical() {
+		return this.vertical;
 	}
 
 	public void setLibelle(String libelle) {

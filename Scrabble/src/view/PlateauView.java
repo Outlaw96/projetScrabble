@@ -65,7 +65,7 @@ public class PlateauView extends JPanel {
 		// Coord Y chevalet humain
 		this.yHum = (this.yP + this.sizeCaz * 15) + 15;
 		this.yB = this.yHum + 50;
-		this.addMouseListener(new PlateauListener(this, this.plateau, this.players[1]));
+		this.addMouseListener(new PlateauListener(this, this.plateau, this.players[1], partie));
 	}
 
 	// Recupérer tous les pions du joueurs placés sur le plateau
@@ -86,14 +86,13 @@ public class PlateauView extends JPanel {
 		g.fillRect(xTool, yP, this.sizeTool, 100);
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Courier new", Font.BOLD, 30));
-		g.drawString("Minuteur", (this.xTool + this.sizeTool * 1 / 4) -20, (xP + 30) + 10);
+		g.drawString("Minuteur", (this.xTool + this.sizeTool * 1 / 4) - 20, (xP + 30) + 10);
 		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		g.drawString("00 : 00", this.xTool + this.sizeTool * 1 / 4, (xP + 60) + 20);
 	}
-	
-	//dessiner score joeur
-	public void drawScore(Graphics g)
-	{
+
+	// dessiner score joeur
+	public void drawScore(Graphics g) {
 		g.setColor(new Color(84, 130, 53));
 		g.fillRect(xTool, yP + 120, this.sizeTool, 200);
 		g.setColor(Color.BLACK);
@@ -104,13 +103,12 @@ public class PlateauView extends JPanel {
 		g.setFont(new Font("Century", Font.ITALIC, 40));
 		g.drawString("Vs", (this.xTool + this.sizeTool * 1 / 4) + 20, xP + 240);
 		g.setFont(new Font("Century", Font.BOLD, 28));
-		g.drawString(""+this.players[0].getPoints(), (this.xTool + this.sizeTool * 1 / 4) - 30, xP + 260); //IA
-		g.drawString(""+this.players[1].getPoints(), (this.xTool + this.sizeTool * 1 / 4) + 90, xP + 260); //J1		
+		g.drawString("" + this.players[0].getPoints(), (this.xTool + this.sizeTool * 1 / 4) - 30, xP + 260); // IA
+		g.drawString("" + this.players[1].getPoints(), (this.xTool + this.sizeTool * 1 / 4) + 90, xP + 260); // J1
 	}
-	
-	//dessiner la partie dico
-	public void drawDictionnaire(Graphics g)
-	{
+
+	// dessiner la partie dico
+	public void drawDictionnaire(Graphics g) {
 		g.setColor(new Color(84, 130, 53));
 		g.fillRect(xTool, yP + 400, this.sizeTool, 50);
 		g.setColor(Color.BLACK);
@@ -163,10 +161,9 @@ public class PlateauView extends JPanel {
 	public boolean isPlaying(int x, int y) {
 		return (x > this.xP + 360 && x < this.xP + 360 + this.sizeButton && y > this.yB && y < this.yB + this.sizeCaz);
 	}
-	
-	//cliquer sur le bouton dictionnaire
-	public boolean isSearching(int x, int y)
-	{
+
+	// cliquer sur le bouton dictionnaire
+	public boolean isSearching(int x, int y) {
 		return (x >= 550 && x <= 750) && (y >= 460 && y <= 510);
 	}
 
@@ -472,6 +469,5 @@ public class PlateauView extends JPanel {
 	public void setPartie(Partie partie) {
 		this.partie = partie;
 	}
-	
-	
+
 }

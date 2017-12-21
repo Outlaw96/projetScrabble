@@ -3,11 +3,15 @@ package listeners;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import erreurs.NotFullWarning;
+import erreurs.NotStarted;
 import model.Dictionnaire;
 import model.Joueur;
+import model.Partie;
 import model.Pion;
 import model.Plateau;
 import view.PlateauView;
+import view.SearchView;
 import view.SwapPions;
 
 public class PlateauListener implements MouseListener {
@@ -15,10 +19,12 @@ public class PlateauListener implements MouseListener {
 	private Joueur jr;
 	private Plateau pl;
 	private Pion pion;
+	private Partie partie;
 	private int i, j, index;
 
-	public PlateauListener(PlateauView pv, Plateau pl, Joueur jr) {
+	public PlateauListener(PlateauView pv, Plateau pl, Joueur jr, Partie partie) {
 		this.pv = pv;
+		this.partie = partie;
 		this.pl = pl;
 		this.jr = jr;
 		this.i = -1;
@@ -29,35 +35,41 @@ public class PlateauListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (this.pv.isSkiping(e.getX(), e.getY())) {
-			System.out.println("skip");
-		} 
-		else if (this.pv.isSwapping(e.getX(), e.getY())) 
-		{
-			new SwapPions(jr.getChevalet(), pv);
-		} 
-		else if (this.pv.isMixing(e.getX(), e.getY())) {
-			if (this.jr.isFull()) {
-				System.out.println("mix");
-				this.jr.mix();
+		if (!partie.getSacPions().isEmpty()) {
+			if (this.pv.isSkiping(e.getX(), e.getY())) {
+				System.out.println("skip");
+			} else if (this.pv.isSwapping(e.getX(), e.getY())) {
+				if (jr.isFull()) {
+					new SwapPions(jr.getChevalet(), pv);
+				} else {
+					new NotFullWarning();
+				}
+			} else if (this.pv.isMixing(e.getX(), e.getY())) {
+				if (this.jr.isFull()) {
+					System.out.println("mix");
+					this.jr.mix();
+					this.jr.showChevalet();
+					this.pv.repaint();
+				} else {
+					new NotFullWarning();
+				}
+			} else if (this.pv.isRetrieving(e.getX(), e.getY())) {
+				System.out.println("retrieve");
+				this.pv.retrieve();
 				this.jr.showChevalet();
+				// this.pl.removeLastWord();
 				this.pv.repaint();
+			} else if (this.pv.isPlaying(e.getX(), e.getY())) {
+				if (pl.hasStarted()) {
+					this.pl.playWord(jr);
+					this.jr.showChevalet();
+					System.out.println("play");
+				} else {
+					new NotStarted();
+				}
+			} else if (this.pv.isSearching(e.getX(), e.getY())) {
+				new SearchView().display();
 			}
-		} 
-		else if (this.pv.isRetrieving(e.getX(), e.getY())) {
-			System.out.println("retrieve");
-			this.pv.retrieve();
-			this.jr.showChevalet();
-			this.pv.repaint();
-		} 
-		else if (this.pv.isPlaying(e.getX(), e.getY())) {
-			this.pl.playWord();
-			this.pl.showWords();
-			System.out.println("play");
-		} 
-		else if (this.pv.isSearching(e.getX(), e.getY())) {
-			// dans ce cas on affiche le formulaire
-			new Dictionnaire();
 		}
 	}
 
@@ -81,7 +93,7 @@ public class PlateauListener implements MouseListener {
 			int x = this.pv.getX(e.getY());
 			int y = this.pv.getY(e.getX());
 			if (x >= 0 && y >= 0) {
-				if (pl.getCases()[x][y].isTaken()) {
+				if (pl.getCases()[x][y].isTaken() && !pl.getCases()[x][y].getPion().isFixed()) {
 					this.pion = pl.getCases()[x][y].getPion();
 					this.i = x;
 					this.j = y;

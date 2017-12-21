@@ -9,7 +9,7 @@ package model;
 public enum TypeCase {
 	MS(" ", 1), MT("MT", 3), MD("MD", 2), LT("LT", 3), LD("LD", 2);
 
-	private final int multiplicateur;
+	private int multiplicateur;
 	private final String libelle;
 
 	TypeCase(String libelle, int multiplicateur) {
@@ -23,5 +23,9 @@ public enum TypeCase {
 
 	public String getLibelle() {
 		return this.libelle;
+	}
+
+	public void setMultiplicateur(int init) {
+		this.multiplicateur = init;
 	}
 }

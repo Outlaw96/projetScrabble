@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Joueur {
@@ -35,10 +34,14 @@ public class Joueur {
 	// approvisionner les chavalets des joueurs pion au hasard
 	public void approvisionning() {
 		if (!this.partie.isEmptySac()) {
-			while (!this.isFull()) {
-				int i = rand.nextInt(this.partie.getSacPions().size());
-				this.addPion(this.count, this.partie.getPion(i));
-				this.partie.removeFromSac(i);
+			int j = 0;
+			while (j < 7) {
+				if (this.chevalet[j].getPion() == null) {
+					int i = rand.nextInt(this.partie.getSacPions().size());
+					this.addPion(j, this.partie.getPion(i));
+					this.partie.removeFromSac(i);
+				}
+				j++;
 			}
 		} else
 			System.out.println("vide!");
@@ -57,7 +60,7 @@ public class Joueur {
 	}
 
 	public void setPoints(int points) {
-		this.points = points;
+		this.points += points;
 	}
 
 	public boolean isWinner() {
@@ -72,16 +75,15 @@ public class Joueur {
 		return chevalet;
 	}
 
-	public Case getChevaletCase(int index)
-	{
+	public Case getChevaletCase(int index) {
 		return this.chevalet[index];
 	}
-	
-	public void setChevaletCase(int index, Pion p)
-	{
-		this.chevalet[index].setPion(p);;
+
+	public void setChevaletCase(int index, Pion p) {
+		this.chevalet[index].setPion(p);
+		;
 	}
-	
+
 	public void setChevalet(Case[] chevalet) {
 		this.chevalet = chevalet;
 	}
